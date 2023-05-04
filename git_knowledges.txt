@@ -1,0 +1,92 @@
+# в каталоге с проектом создать репозиторий
+git init
+
+
+# задание имени и @mail
+git config user.name "pnemmalysha"
+git config user.email "pnemmalysha@gmail.com"
+
+git config --global user.name "pnemmalysha"
+git config --global user.email "pnemmalysha@gmail.com"
+
+
+# посмотреть настройки гита
+git config -l
+cat .git/config
+
+
+# состояние гита
+git status
+
+
+# закоммитить
+git commit -m "work prototype"
+git commit --amend -m "work prototype." # переписать предыдущий коммит (если внес мелкое дополнение)
+
+
+# откатить изменения в файле к состоянию последнего коммита
+git restore main.py
+git checkout main.py
+
+
+# Индекс — промежуточное место между вашим прошлым коммитом и следующим. Вы можете добавлять или удалять файлы из индекса. Когда вы делаете коммит в него попадают данные из индекса, а не из рабочей области.
+# добавить файл в индекс
+git add main.py
+git add -u # обновить отслеживаемые файлы
+
+
+# удалить файл из индекса
+git restore --staged main.py
+git reset HEAD main.py
+
+
+Предположим, что вы отредактировали три файла (a.html, b.html, и c.html). Теперь вы хотите закоммитить все изменения, при этом чтобы изменения в a.html и b.html были одним коммитом, в то время как изменения в c.html логически не связаны с первыми двумя файлами и должны идти отдельным коммитом.
+В теории, вы можете сделать следующее:
+
+git add a.html
+git add b.html
+git commit -m "Changes for a and b"
+
+git add c.html
+git commit -m "Unrelated change to c"
+
+
+# изменения в файлах с прошлого коммита
+git diff # до добавления файлов в индекс
+git diff --cached # после добавления файлов в индекс
+git diff ae5924c ac847d3 # между двумя коммитами
+
+
+# список коммитов
+git log
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+git log --all # все коммиты, даже если сейчас ты откатился
+git log --graph # ASCII граф с ветвлениями и историей слияний
+git log -S slovo # показывает только коммиты, в которых изменение в коде повлекло за собой добавление или удаление указанной строки
+git log -p # показывать изменения в файлах для каждого коммита
+
+
+# Команда checkout скопирует любой снимок из репозитория в рабочий каталог. «master» — имя ветки по умолчанию.
+git checkout ae5924c634426d6d10f70406a85befcf49328222 # откатиться на состояние того коммита
+git checkout ae5924c # достаточно 7 первых символов
+git checkout master # вернуться к текущему состоянию
+
+# добавить тег на коммит
+git tag v1
+
+# вернуться на один коомит назад; добавить тег на предыдущий коммит
+git checkout v1^
+git tag v1-beta
+
+# посмотреть список тегов
+git tag
+
+
+#
+#
+#
+#
+#
+#
+#
+#
